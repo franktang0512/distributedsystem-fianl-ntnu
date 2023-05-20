@@ -1,8 +1,8 @@
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
-  console.log(process.env.NODE_ENV);
+  //console.log(process.env.NODE_ENV);
 }else{
-  console.log(process.env.NODE_ENV);
+  //console.log(process.env.NODE_ENV);
 }
 
 const Express = require('express');
@@ -35,50 +35,50 @@ app.get('/',async (req,res)=>{
   res.render('index',{posts:posts});
 });
 
-app.get('/about',function(req,res){
-  res.render('about');
-});
+// app.get('/about',function(req,res){
+//   res.render('about');
+// });
 
 
 
 
 
 
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(helmet());
+// app.use(bodyParser.json());
+// app.use(bodyParser.urlencoded({ extended: true }));
+// app.use(helmet());
 
-const path = require('path');
-const publicPath = path.join(__dirname, 'public');
-app.use(serveStatic(publicPath));
+// const path = require('path');
+// const publicPath = path.join(__dirname, 'public');
+// app.use(serveStatic(publicPath));
 
-app.get('/posts', async (req, res) => {
-  const posts = await Post.findAll();
-  res.send(posts);
-});
+// app.get('/posts', async (req, res) => {
+//   const posts = await Post.findAll();
+//   res.send(posts);
+// });
 
-app.get('/user/:id', async (req, res) => {
-  //await must be in async funtion
-  const user = await User.findById(req.params.id)
-  res.send('user id: ' + req.params.id);
-});
-app.get('/create/user', (req, res) => {
-  User.create({
-      email: 'frank051284@gmail.com',
-      password: 'frank',
-      nickname: 'frankyboy',
-      gender: 1
-  }).then(user => {
-      res.send(user);
-  }).catch(err => {
-      console.log(err); 
-  });
-});
+// app.get('/user/:id', async (req, res) => {
+//   //await must be in async funtion
+//   const user = await User.findById(req.params.id)
+//   res.send('user id: ' + req.params.id);
+// });
+// app.get('/create/user', (req, res) => {
+//   User.create({
+//       email: 'frank051284@gmail.com',
+//       password: 'frank',
+//       nickname: 'frankyboy',
+//       gender: 1
+//   }).then(user => {
+//       res.send(user);
+//   }).catch(err => {
+//       console.log(err); 
+//   });
+// });
 
-app.post('/create/post', async (req, res) => {
-  await Post.create(req.body);
-  res.redirect('/');
-});
+// app.post('/create/post', async (req, res) => {
+//   await Post.create(req.body);
+//   res.redirect('/');
+// });
 
 db.sync().then(() => {
   app.listen(process.env.PORT, function () {
@@ -87,49 +87,49 @@ db.sync().then(() => {
 });
 
 
-app.get('/create/post', async (req, res) => {
-  const post = await Post.create({
-      title: 'test',
-      content: '',
-      author: 1,
-  });
-  res.send(post);
-});
+// app.get('/create/post', async (req, res) => {
+//   const post = await Post.create({
+//       title: 'test',
+//       content: '',
+//       author: 1,
+//   });
+//   res.send(post);
+// });
 
 
-app.get('/posts/:id', async (req, res) => {
-  const post = await Post.findById(req.params.id);
-  if (post) {
-      res.send(post);
-  } else {
-      res.status(404).end();
-  }
-});
+// app.get('/posts/:id', async (req, res) => {
+//   const post = await Post.findById(req.params.id);
+//   if (post) {
+//       res.send(post);
+//   } else {
+//       res.status(404).end();
+//   }
+// });
 
-app.post('/posts', async (req, res) => {
-  const post = await Post.create(req.body);
-  res.status(201).send(post);
-});
-app.delete('/posts/:id', async (req, res) => {
-  await Post.destroy({
-      where: { id: req.params.id }
-  });
-  res.status(204).end();
-});
+// app.post('/posts', async (req, res) => {
+//   const post = await Post.create(req.body);
+//   res.status(201).send(post);
+// });
+// app.delete('/posts/:id', async (req, res) => {
+//   await Post.destroy({
+//       where: { id: req.params.id }
+//   });
+//   res.status(204).end();
+// });
 
-app.get('/posts', async (req, res) => {
-  const limit = req.query.limit || 5;
-  const page = req.query.page || 1;
-  const posts = await Post.findAll({
-      limit: limit,
-      offset: limit * (page - 1),
-  });
+// app.get('/posts', async (req, res) => {
+//   const limit = req.query.limit || 5;
+//   const page = req.query.page || 1;
+//   const posts = await Post.findAll({
+//       limit: limit,
+//       offset: limit * (page - 1),
+//   });
 
-  res.send(
-      Object.assign(posts, {
-          page: page,
-          totalPage: Math.ceil(posts.count / limit),
-      })
-  );
+//   res.send(
+//       Object.assign(posts, {
+//           page: page,
+//           totalPage: Math.ceil(posts.count / limit),
+//       })
+//   );
 
-});
+// });
