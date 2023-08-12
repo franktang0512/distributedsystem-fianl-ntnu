@@ -8,12 +8,7 @@ if (process.env.NODE_ENV !== 'production') {
 const Express = require('express');
 const helmet = require('helmet');
 const serveStatic = require('serve-static');
-
-
-
-
 const bodyParser = require('body-parser');
-
 const { db, User, Post } = require('./models');
 
 
@@ -26,13 +21,13 @@ app.set('view engine','pug');
 
 
 app.get('/',async (req,res)=>{
-  const posts = await Post.findAll({
-      order:[['createdAt','DESC']]
-  }
+  // const posts = await Post.findAll({
+  //     order:[['createdAt','DESC']]
+  // }
       
-  );
+  // );
   
-  res.render('index',{posts:posts});
+  // res.render('index',{posts:posts});
 });
 
 app.get('/about',function(req,res){
